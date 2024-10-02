@@ -11,8 +11,6 @@ export default function Local() {
         Path: string;
     };
 
-    const playerRef = useRef<ReactPlayer | null>(null);
-
     // State to store the videos
     const [videos, setVideos] = useState<Video[] | undefined>(undefined);
 
@@ -23,19 +21,6 @@ export default function Local() {
             setVideos(JSON.parse(z)); // Update the state with parsed videos
         }
     }, []); // Empty dependency array ensures this runs only once
-    // Function to play the video
-    const handlePlay = () => {
-        if (playerRef.current) {
-            (playerRef.current.getInternalPlayer() as HTMLVideoElement).play(); // Play the video
-        }
-    };
-
-    // Function to pause the video
-    const handlePause = () => {
-        if (playerRef.current) {
-            (playerRef.current.getInternalPlayer() as HTMLVideoElement).pause(); // Pause the video
-        }
-    };
     return (
         <div className='flex flex-row flex-wrap justify-around w-full'>
             {videos && videos.length > 0 ? (
@@ -46,10 +31,6 @@ export default function Local() {
                         <div className='font-bold text-5xl'>{val.title}</div>
                         <div className='text-xl text-pretty'>{val.description}</div>
                         <br />
-                        <div className="flex flex-row justify-around">
-                            <button className='bg-black block rounded text-white px-5 py-10' onClick={handlePlay}>Play</button>
-                            <button className='bg-black block rounded text-white px-5 py-10' onClick={handlePause}>Pause</button>
-                        </div>
                     </div>
                 ))
             ) : (
